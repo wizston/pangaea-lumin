@@ -14,7 +14,10 @@
     </div>
     <div class="col-md-3 ml-auto">
         <a class="py-2 d-none d-md-inline-block mr-4" href="#">Account</a>
-        <a class="py-2 d-none d-md-inline-block" href="#">Cart</a>
+        <a class="py-2 d-none d-md-inline-block" href="#" @click.prevent="toggle">
+          <img src="https://img.icons8.com/android/24/ffffff/shopping-cart.png" alt="Lumin"/>
+          <span class="badge position-absolute" style="top: 0px;">{{cartItems.length}}</span>
+        </a>
     </div>
     </div>
       </div>
@@ -34,17 +37,31 @@
       </div>
     </footer>
 </div>
+<Sidebar/>
   </div>
 </template>
 
 <script>
+import { store, mutations } from "@/store.js";
 import Home from './components/Home.vue'
+import Sidebar from './components/Sidebar.vue'
 
 export default {
   name: 'App',
   components: {
-    Home
-  }
+    Home,
+    Sidebar
+  },
+    computed: {
+        cartItems() {
+            return store.cart;
+        },
+    },
+    methods: {
+    toggle() {
+      mutations.toggleNav();
+    }
+    }
 }
 </script>
 
@@ -54,5 +71,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  height: 100%;
 }
 </style>
