@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="position-relative overflow-hidden text-center bg-light">
-            <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <div class="col-md-5 p-lg-5 mx-auto my-5" style="z-index: 1">
                 <h1 class="display-4 font-weight-normal">All Products</h1>
                 <p class="lead font-weight-normal">
                     And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple's marketing pages.
@@ -14,7 +14,7 @@
 
         <div class="container my-5">
             <div class="row" v-if="loading">
-                <div class="col col-md-4 mb-4" v-for="load in 10" :key="load">
+                <div class="col-sm-12 col-md-4 mb-4" v-for="load in 10" :key="load">
                     <div class="ph-item">
                         <div class="ph-col-12">
                             <div class="ph-picture" style="height: 200px;"></div>
@@ -37,8 +37,8 @@
                 </div>
             </div>
             <div class="row" v-else>
-                <div class="col col-md-4 mb-4" v-for="product in products" :key="product.id">
-                    <div class="card shadow" style="width: 18rem;">
+                <div class="col-sm-12 col-md-4 mb-4" v-for="product in products" :key="product.id">
+                    <div class="card shadow">
                         <div class="row align-items-center" style="min-height: 200px;">
                             <div class="col">
                                 <img :src="product.image_url" class="" :alt="product.title" style="margin: auto;max-height: 200px;max-width: 80%;padding: 15px;" />

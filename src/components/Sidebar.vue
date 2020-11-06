@@ -1,49 +1,54 @@
 <template>
-    <div class="container-fluid h-100 cart" v-if="isPanelOpen">
+    <div class="container-fluid h-100 cart" style="z-index: 3;" v-if="isPanelOpen">
         <div class="row justify-content-end h-100">
             <div class="backdrop col animate__animated animate__fadeIn animate__delay-1s" @click="closeSidebarPanel"></div>
             <transition name="slide">
                 <div class="col-md-3 col-sm-12 hidden-md-down animate__animated animate__slideInRight" id="yellow">
                     <button class="btn btn-light rounded-circle border float-left shadow-sm mt-2" @click="closeSidebarPanel">&lt;</button>
                     <h6 class="text-center mt-4">YOUR CART ({{ cartItems.length }})</h6>
-                    <div class="form-group">
+                    <div class="form-group mt-5">
                         <select class="form-control w-auto form-control-sm" v-model="cartCurrency" @change="getProducts">
                             <option v-for="(item, index) in currency" :key="index">{{ item }}</option>
                         </select>
                     </div>
-                    <div class="cart-container p-0">
-                        <div class="card mb-3 shadow-sm" style="max-width: 540px" v-for="(product, index) in cartItems" :key="product.id">
-                            <div class="row no-gutters">
-                                <div class="col">
-                                    <div class="card-body text-left">
-                                        <h6 class="card-title">{{ product.title }}</h6>
-                                        <div class="card-text">
-                                            <div class="btn-group border" role="group">
-                                                <button type="button" class="btn btn-default btn-sm" @click="decreaseQuantity(index)">-</button>
-                                                <input v-model="product.quantity" class="btn btn-default btn-sm" style="width: 50px;" />
-                                                <button type="button" class="btn btn-default btn-sm" @click="increaseQuantity(index)">+</button>
+                    <div v-if="cartItems.length > 0">
+                        <div class="cart-container p-0">
+                            <div class="card mb-3 shadow-sm" style="max-width: 540px" v-for="(product, index) in cartItems" :key="product.id">
+                                <div class="row no-gutters">
+                                    <div class="col">
+                                        <div class="card-body text-left">
+                                            <h6 class="card-title">{{ product.title }}</h6>
+                                            <div class="card-text">
+                                                <div class="btn-group border" role="group">
+                                                    <button type="button" class="btn btn-default btn-sm" @click="decreaseQuantity(index)">-</button>
+                                                    <input v-model="product.quantity" class="btn btn-default btn-sm" style="width: 50px;" />
+                                                    <button type="button" class="btn btn-default btn-sm" @click="increaseQuantity(index)">+</button>
+                                                </div>
+                                                <span style="float: right;" v-html="$options.filters.toCurrency(parseFloat(product.price) * parseFloat(product.quantity), cartCurrency)"></span>
                                             </div>
-                                            <span style="float: right;" v-html="$options.filters.toCurrency(parseFloat(product.price) * parseFloat(product.quantity), cartCurrency)"></span>
                                         </div>
                                     </div>
+                                    <div class="col-3 align-self-center">
+                                        <img :src="product.image_url" class="" :alt="product.title" style="margin: auto;max-height: 100px;max-width: 80%;padding: 15px;" />
+                                    </div>
+                                    <button type="button" class="close" @click="removeItemFromCart(index)" aria-label="Close" style="font-size: medium;position: absolute;right: 10px;top: 5px;">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                                <div class="col-3 align-self-center">
-                                    <img :src="product.image_url" class="" :alt="product.title" style="margin: auto;max-height: 100px;max-width: 80%;padding: 15px;" />
-                                </div>
-                                <button type="button" class="close" @click="removeItemFromCart(index)" aria-label="Close" style="font-size: medium;position: absolute;right: 10px;top: 5px;">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="cart-footer">
-                        <hr />
-                        <div class="row subtotal p-2">
-                            <div class="col text-left">Subtotal</div>
-                            <div class="col text-right" v-html="$options.filters.toCurrency(totalItem, cartCurrency)"></div>
+                        <div class="cart-footer">
+                            <hr />
+                            <div class="row subtotal p-2">
+                                <div class="col text-left">Subtotal</div>
+                                <div class="col text-right" v-html="$options.filters.toCurrency(totalItem, cartCurrency)"></div>
+                            </div>
+                            <button class="btn btn-block btn-outline-dark bg-white text-dark p-2">MAKE THIS A SUBSCRIPTION (SAVE 20%)</button>
+                            <button class="btn btn-block btn-outline-dark bg-dark p-2 text-light">PROCEED TO CHECKOUT</button>
                         </div>
-                        <button class="btn btn-block btn-outline-dark bg-white text-dark p-2">MAKE THIS A SUBSCRIPTION (SAVE 20%)</button>
-                        <button class="btn btn-block btn-outline-dark bg-dark p-2 text-light">PROCEED TO CHECKOUT</button>
+                    </div>
+                    <div class="mt-5 pt-5" v-else>
+                        <img src="https://www.getafollower.com/images/empty-cart.png" alt="empty cart" class="mt-5 pt-5 img-fluid">
                     </div>
                 </div>
             </transition>

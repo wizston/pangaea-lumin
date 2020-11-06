@@ -12,9 +12,9 @@
         <a class="py-2 d-none d-md-inline-block" href="#">Learn</a>
 
     </div>
-    <div class="col-md-3 ml-auto">
-        <a class="py-2 d-none d-md-inline-block mr-4" href="#">Account</a>
-        <a class="py-2 d-none d-md-inline-block" href="#" @click.prevent="toggle">
+    <div class="col-6 ml-auto">
+        <a class="py-2 d-md-inline-block mr-4" href="#">Account</a>
+        <a class="py-2 d-md-inline-block" href="#" @click.prevent="toggle">
           <img src="https://img.icons8.com/android/24/ffffff/shopping-cart.png" alt="Lumin"/>
           <span class="badge position-absolute" style="top: 0px;">{{cartItems.length}}</span>
         </a>
