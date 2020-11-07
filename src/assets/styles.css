@@ -87,7 +87,7 @@
   .overflow-hidden { overflow: hidden; }
   
   .cart-container {
-    max-height: 70%;
+    max-height: 80%;
     overflow: scroll;
     padding: 20px 5px;
   }
@@ -106,4 +106,10 @@
 
   .cart-footer .subtotal {
       font-size: 15px;
+  }
+
+  @media (max-width:768px)  { 
+      #yellow {
+          padding-top: 40px;
+      }
   }
